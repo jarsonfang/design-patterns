@@ -4,21 +4,23 @@
 
 template <typename T> class Singleton
 {
-public:
-    static T &instance()
-    {
-        init();
-        return *_instance;
-    }
-
-private:
-    static void init()
-    {
-        if (_instance == 0)
+    public:
+        static T &instance()
         {
+            init();
+            return *_instance;
+        }
+
+    private:
+        static void init()
+        {
+            if (0 == _instance) {
+                return;
+            }
+
             pthread_mutex_lock(&_mutex);
 
-            if (_instance == 0)
+            if (0 == _instance)
             {
                 _instance = new T;
                 atexit(destroy);    //程序结束时调用注册的函数
@@ -26,21 +28,20 @@ private:
 
             pthread_mutex_unlock(&_mutex);
         }
-    }
 
-    static void destroy()
-    {
-        delete _instance;
-    }
+        static void destroy()
+        {
+            delete _instance;
+        }
 
-    Singleton();
-    ~Singleton();
+        Singleton();
+        ~Singleton();
 
-    Singleton(const Singleton &other);
-    Singleton &operator=(const Singleton &other);
+        Singleton(const Singleton &other);
+        Singleton &operator=(const Singleton &other);
 
-    static T * volatile _instance;
-    static pthread_mutex_t _mutex;
+        static T * volatile _instance;
+        static pthread_mutex_t _mutex;
 };
 
 template <typename T>

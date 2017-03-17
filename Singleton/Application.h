@@ -6,21 +6,21 @@ using namespace std;
 
 class ApplicationImpl
 {
-public:
-    ApplicationImpl()
-    {
-        cout << "ApplicationImpl ..." << endl;
-    }
+    public:
+        ApplicationImpl()
+        {
+            cout << "ApplicationImpl ..." << endl;
+        }
 
-    ~ApplicationImpl()
-    {
-        cout << "~ApplicationImpl ..." << endl;
-    }
+        ~ApplicationImpl()
+        {
+            cout << "~ApplicationImpl ..." << endl;
+        }
 
-    void run()
-    {
-        cout << "run ..." << endl;
-    }
+        void run()
+        {
+            cout << "run ..." << endl;
+        }
 };
 
 typedef Singleton <ApplicationImpl> Application;
